@@ -1,4 +1,22 @@
 from flask import Flask, render_template
+import mysql.connector
+
+class Database():
+	def __init__(self):
+		__host = "localhost"
+		__user = "root"
+		__password = "root"
+		__db = "Pessoas"
+
+		self.con = mysql.connector.connect( host = __host, user = __user, passwd = __password, database = __db)
+		self.cursor = self.con.cursor()
+
+	def mostrar_pessoas(self):
+		self.cursor.execute("SELECT * FROM pessoas")
+		results = self.cursor.fetchall()
+		return results
+
+db = Database()
 
 app = Flask(__name__)
 
@@ -8,7 +26,8 @@ def inicio():
 
 @app.route("/lista_pessoas")
 def lista_pessoas():
-	return render_template("lista_pessoas.html")
+	pessoas = db.mostrar_pessoas()
+	return render_template("lista_pessoas.html", result = pessoas, content_type = "application/json")
 
 @app.route("/form_alterar_pessoa")
 def form_alterar_pessoa():
