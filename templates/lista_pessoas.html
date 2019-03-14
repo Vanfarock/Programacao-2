@@ -65,6 +65,13 @@
 				<th class="tg-0lax"><a href="/form_alterar_pessoa">Editar</a></th>
 				<th class="tg-0lax"><a href="/form_deletar_pessoa">Deletar</a></th>
   			</tr>
+  			{% for item in data %}
+  			<tr>
+  				<td>{{item[0]}}</td>
+  				<td>{{item[1]}}</td>
+  				<td>{{item[2]}}</td>
+  			</tr>
+  			{% endfor %}
 		</table>
 		<a href="form_inserir_pessoa">Inserir pessoa</a>
 	</body>
