@@ -1,47 +1,45 @@
 from flask import Flask, render_template
 import mysql.connector
 
-class Database():
-	def __init__(self):
-		__host = "localhost"
-		__user = "root"
-		__password = "root"
-		__db = "Pessoas"
+# class Database():
+# 	def __init__(self):
+# 		__host = "localhost"
+# 		__user = "root"
+# 		__password = "root"
+# 		__db = "Pessoas"
 
-		self.con = mysql.connector.connect( host = __host, user = __user, passwd = __password, database = __db)
-		self.cursor = self.con.cursor()
+# 		self.con = mysql.connector.connect( host = __host, user = __user, passwd = __password, database = __db)
+# 		self.cursor = self.con.cursor()
 
-		self.cursor.execute("CREATE TABLE IF NOT EXISTS pessoas (nome varchar(255) not null, data_nascimento date not null, cpf varchar(11) primary key)")
+# 		self.cursor.execute("CREATE TABLE IF NOT EXISTS pessoas (nome varchar(255) not null, rua varchar(255) not null, telefone varchar(9) primary key)")
 
-	def mostrar_pessoas(self):
-		self.cursor.execute("SELECT * FROM pessoas")
-		results = self.cursor.fetchall()
-		print( results )
-		return results
+# 	def mostrar_pessoas(self):
+# 		self.cursor.execute("SELECT * FROM pessoas")
+# 		results = self.cursor.fetchall()
+# 		print(results)
+# 		return results
 
-def padronizar_pessoas(pessoas):
-	novas_pessoas = []
-	for pessoa in pessoas:
-		data = str(pessoa[1])
-		data_formatada = data[8:10] + "/" + data[5:7] + "/" + data[0:4]
-		novas_pessoas.append((pessoa[0], data_formatada, pessoa[2]))
-	return novas_pessoas
+# db = Database()
 
-db = Database()
+class Pessoa:
+	def __init__(self, nome, rua, telefone):
+		self.nome = nome
+		self.rua = rua
+		self.telefone = telefone
+
+
 
 app = Flask(__name__)
+
+lista_pessoas = [Pessoa("Luana", "Alex Robe", "991678017")]
 
 @app.route("/")
 def inicio():
 	return render_template("index.html")
 
-@app.route("/lista_pessoas")
-def lista_pessoas():
-	pessoas = db.mostrar_pessoas()
-	pessoas = padronizar_pessoas(pessoas)
-	#data_nascimento = pessoas[0][1]
-	#pessoas[0][1] = padronizar_data_nascimento(data_nascimento)
-	return render_template("lista_pessoas.html", data = pessoas, content_type = "application/json")
+@app.route("/listar_pessoas")
+def listar_pessoas():
+	return render_template("lista_pessoas.html", info = lista_pessoas)
 
 @app.route("/form_alterar_pessoa")
 def form_alterar_pessoa():

@@ -40,36 +40,16 @@
 		<table class="tg">
   			<tr>
 				<th class="tg-0lax">Nome</th>
-				<th class="tg-0lax">Data de Nascimento</th>
-				<th class="tg-0lax">CPF</th>
-				
+				<th class="tg-0lax">Rua</th>
+				<th class="tg-0lax">Telefone</th>
   			</tr>
+  			{% for pessoa in info %}
   			<tr>
-				<th class="tg-0lax">João</th>
-				<th class="tg-0lax">27/03/2002</th>
-				<th class="tg-0lax">12345678914</th>
-				<th class="tg-0lax"><a href="/form_alterar_pessoa">Editar</a></th>
-				<th class="tg-0lax"><a href="/form_deletar_pessoa">Deletar</a></th>
-  			</tr>
-  			<tr>
-				<th class="tg-0lax">Luana</th>
-				<th class="tg-0lax">08/11/2001</th>
-				<th class="tg-0lax">95874165314</th>
-				<th class="tg-0lax"><a href="/form_alterar_pessoa">Editar</a></th>
-				<th class="tg-0lax"><a href="/form_deletar_pessoa">Deletar</a></th>
-  			</tr>
-  			<tr>
-				<th class="tg-0lax">Cleiton</th>
-				<th class="tg-0lax">05/07/1999</th>
-				<th class="tg-0lax">58964821478</th>
-				<th class="tg-0lax"><a href="/form_alterar_pessoa">Editar</a></th>
-				<th class="tg-0lax"><a href="/form_deletar_pessoa">Deletar</a></th>
-  			</tr>
-  			{% for item in data %}
-  			<tr>
-  				<td>{{item[0]}}</td>
-  				<td>{{item[1]}}</td>
-  				<td>{{item[2]}}</td>
+  				<td>{{pessoa.nome}}</td>
+  				<td>{{pessoa.rua}}</td>
+  				<td>{{pessoa.telefone}}</td>
+  				<td><a href="form_alterar_pessoa">Editar</a></td>
+  				<td><a href="form_deletar_pessoa">Remover</a></td>
   			</tr>
   			{% endfor %}
 		</table>
