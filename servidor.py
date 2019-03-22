@@ -1,37 +1,18 @@
-from flask import Flask, render_template
-import mysql.connector
-
-# class Database():
-# 	def __init__(self):
-# 		__host = "localhost"
-# 		__user = "root"
-# 		__password = "root"
-# 		__db = "Pessoas"
-
-# 		self.con = mysql.connector.connect( host = __host, user = __user, passwd = __password, database = __db)
-# 		self.cursor = self.con.cursor()
-
-# 		self.cursor.execute("CREATE TABLE IF NOT EXISTS pessoas (nome varchar(255) not null, rua varchar(255) not null, telefone varchar(9) primary key)")
-
-# 	def mostrar_pessoas(self):
-# 		self.cursor.execute("SELECT * FROM pessoas")
-# 		results = self.cursor.fetchall()
-# 		print(results)
-# 		return results
-
-# db = Database()
+from flask import Flask, render_template, request
 
 class Pessoa:
-	def __init__(self, nome, rua, telefone):
+	def __init__(self, nome, data_nascimento, cpf):
 		self.nome = nome
-		self.rua = rua
-		self.telefone = telefone
+		self.data_nascimento = data_nascimento
+		self.cpf = cpf
 
-
+def formatar_data(data):
+	data = data[8:10] + "/" + data[5:7] + "/" + data[0:4]
+	return data
 
 app = Flask(__name__)
 
-lista_pessoas = [Pessoa("Luana", "Alex Robe", "991678017")]
+pessoas = []
 
 @app.route("/")
 def inicio():
@@ -39,11 +20,11 @@ def inicio():
 
 @app.route("/listar_pessoas")
 def listar_pessoas():
-	return render_template("lista_pessoas.html", info = lista_pessoas)
+	return render_template("lista_pessoas.html", info = pessoas)
 
 @app.route("/form_alterar_pessoa")
 def form_alterar_pessoa():
-	return render_template("form_alterar_pessoa.html")	
+	return render_template("form_alterar_pessoa.html")
 
 @app.route("/form_deletar_pessoa")
 def form_deletar_pessoa():
@@ -52,5 +33,14 @@ def form_deletar_pessoa():
 @app.route("/form_inserir_pessoa")
 def form_inserir_pessoa():
 	return render_template("form_inserir_pessoa.html")
+
+@app.route("/cadastrar_pessoa")
+def cadastrar_pessoa():
+	nome = request.args.get("nome")
+	data = request.args.get("data")
+	cpf = request.args.get("cpf")
+	data = formatar_data(data)
+	pessoas.append(Pessoa(nome, data, cpf))
+	return render_template("exibir_mensagem.html", pessoa=(nome, data, cpf))
 
 app.run(debug=True, host="0.0.0.0")
