@@ -1,14 +1,10 @@
 from flask import Flask, render_template, request
 
 class Pessoa:
-	def __init__(self, nome, data_nascimento, cpf):
+	def __init__(self, nome, endereco, cpf):
 		self.nome = nome
-		self.data_nascimento = data_nascimento
+		self.endereco = endereco
 		self.cpf = cpf
-
-def formatar_data(data):
-	data = data[8:10] + "/" + data[5:7] + "/" + data[0:4]
-	return data
 
 app = Flask(__name__)
 
@@ -24,11 +20,22 @@ def listar_pessoas():
 
 @app.route("/form_alterar_pessoa")
 def form_alterar_pessoa():
-	return render_template("form_alterar_pessoa.html")
+	nome = request.args.get("nome")
+	endereco = request.args.get("endereco")
+	cpf = request.args.get("cpf")
+	return render_template("form_alterar_pessoa.html", dados=(nome, endereco, cpf))
 
-@app.route("/form_deletar_pessoa")
+@app.route("/excluir_pessoa")
 def form_deletar_pessoa():
-	return render_template("form_deletar_pessoa.html")
+	cpf = request.args.get("cpf")
+	achou = None
+	for p in pessoas:
+		if p.cpf == cpf:
+			achou = p
+			break
+	if achou != None:
+		pessoas.remove(achou)
+		return render_template("exibir_mensagem.html", resultado=str(achou.nome) + " foi excluido com sucesso!")
 
 @app.route("/form_inserir_pessoa")
 def form_inserir_pessoa():
@@ -37,10 +44,10 @@ def form_inserir_pessoa():
 @app.route("/cadastrar_pessoa")
 def cadastrar_pessoa():
 	nome = request.args.get("nome")
-	data = request.args.get("data")
+	endereco = request.args.get("endereco")
 	cpf = request.args.get("cpf")
-	data = formatar_data(data)
-	pessoas.append(Pessoa(nome, data, cpf))
-	return render_template("exibir_mensagem.html", pessoa=(nome, data, cpf))
+	pessoas.append(Pessoa(nome, endereco, cpf))
+	msg = "Seu nome é " + str(nome) + ", você mora na " + str(endereco) + " e seu cpf é " + str(cpf)
+	return render_template("exibir_mensagem.html", resultado=msg)
 
 app.run(debug=True, host="0.0.0.0")

@@ -46,13 +46,13 @@
   			{% for pessoa in info %}
   			<tr>
   				<td>{{pessoa.nome}}</td>
-  				<td>{{pessoa.data_nascimento}}</td>
+  				<td>{{pessoa.endereco}}</td>
   				<td>{{pessoa.cpf}}</td>
-  				<td><a href="form_alterar_pessoa">Editar</a></td>
-  				<td><a href="form_deletar_pessoa">Remover</a></td>
+  				<td><a href=/form_alterar_pessoa?nome={{pessoa.nome}}&endereco={{pessoa.endereco}}&cpf={{pessoa.cpf}}>Editar</a></td>
+  				<td><a href=/excluir_pessoa?cpf={{pessoa.cpf}}>Remover</a></td>
   			</tr>
   			{% endfor %}
 		</table>
-		<a href="form_inserir_pessoa">Inserir pessoa</a>
+		<a href="/form_inserir_pessoa">Inserir pessoa</a>
 	</body>
 </html>
