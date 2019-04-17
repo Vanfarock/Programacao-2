@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 class Pessoa:
 	def __init__(self, nome, endereco, cpf):
@@ -20,10 +20,25 @@ def listar_pessoas():
 
 @app.route("/form_alterar_pessoa")
 def form_alterar_pessoa():
+	cpf = request.args.get("cpf")
+	for p in pessoas:
+		if p.cpf == cpf:
+			return render_template("form_alterar_pessoa.html", dados=p)
+	return render_template("exibir_mensagem.html", resultado="Algo está errado!")
+
+@app.route("/alterar_pessoa")
+def alterar_pessoa():
+	cpf_inicial = request.args.get("cpf_inicial")
 	nome = request.args.get("nome")
 	endereco = request.args.get("endereco")
 	cpf = request.args.get("cpf")
-	return render_template("form_alterar_pessoa.html", dados=(nome, endereco, cpf))
+	for p in pessoas:
+		if p.cpf == cpf_inicial:
+			p.nome = nome
+			p.endereco = endereco
+			p.cpf = cpf
+			return redirect("/listar_pessoas")
+	return render_template("exibir_mensagem.html", resultado="Algo está errado!")
 
 @app.route("/excluir_pessoa")
 def form_deletar_pessoa():

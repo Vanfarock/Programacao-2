@@ -6,11 +6,12 @@
 	</head>
 	<body>
 		<a href="/listar_pessoas">Clique aqui pra voltar</a>
-		<form>
-			<input style="width:10%" type="text" value="{{dados[0]}}" placeholder="Nome completo"><br>
-			<input style="width:10%" type="text" value="{{dados[1]}}" placeholder="Endereço"><br>
-			<input style="width:10%" type="text" value="{{dados[2]}}" placeholder="CPF"><br>
-			<input style="width:10%" type="submit" value="Cadastrar">
+		<form action="/alterar_pessoa">
+			<input style="width:10%" type="text" name="nome" value="{{dados.nome}}" placeholder="Nome completo"><br>
+			<input style="width:10%" type="text" name="endereco" value="{{dados.endereco}}" placeholder="Endereço"><br>
+			<input style="width:10%" type="text" name="cpf" value="{{dados.cpf}}" placeholder="CPF"><br>
+			<input style="width:10%" type="hidden" name="cpf_inicial" value="{{dados.cpf}}">
+			<input style="width:10%" type="submit" value="Alterar">
 		</form>
 	</body>
 </html>
