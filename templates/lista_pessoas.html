@@ -36,7 +36,12 @@
 		</style>
 	</head>
 	<body>
-		<a href="/">Clique aqui pra voltar</a>
+		<a href="/">Clique aqui pra voltar</a><br>
+		{% if session["usuario"] %}
+			<a href="/logout">Fazer logout</a>
+		{% else %}
+			<a href="/form_login">Fazer login</a>
+		{% endif %}
 		<table class="tg">
   			<tr>
 				<th class="tg-0lax">Nome</th>
@@ -48,11 +53,15 @@
   				<td>{{pessoa.nome}}</td>
   				<td>{{pessoa.endereco}}</td>
   				<td>{{pessoa.cpf}}</td>
-  				<td><a href=/form_alterar_pessoa?cpf={{pessoa.cpf}}>Editar</a></td>
-  				<td><a href=/excluir_pessoa?cpf={{pessoa.cpf}}>Remover</a></td>
+  				{% if session["usuario"] %}
+	  				<td><a href=/form_alterar_pessoa?cpf={{pessoa.cpf}}>Editar</a></td>
+	  				<td><a href=/excluir_pessoa?cpf={{pessoa.cpf}}>Remover</a></td>
+	  			{% endif %}
   			</tr>
   			{% endfor %}
 		</table>
-		<a href="/form_inserir_pessoa">Inserir pessoa</a>
+		{% if session["usuario"] %}
+			<a href="/form_inserir_pessoa">Inserir pessoa</a>
+		{% endif %}
 	</body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 
 class Pessoa:
 	def __init__(self, nome, endereco, cpf):
@@ -7,6 +7,8 @@ class Pessoa:
 		self.cpf = cpf
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "LuanaEUmaMenina"
+
 
 pessoas = []
 
@@ -62,7 +64,25 @@ def cadastrar_pessoa():
 	endereco = request.args.get("endereco")
 	cpf = request.args.get("cpf")
 	pessoas.append(Pessoa(nome, endereco, cpf))
-	msg = "Seu nome é " + str(nome) + ", você mora na " + str(endereco) + " e seu cpf é " + str(cpf)
-	return render_template("exibir_mensagem.html", resultado=msg)
+	return render_template("exibir_mensagem.html", resultado="Seu nome é " + str(nome) + ", você mora na " + str(endereco) + " e seu cpf é " + str(cpf))
+
+@app.route("/form_login")
+def form_login():
+	return render_template("form_login.html")
+
+@app.route("/login")
+def login():
+	login = request.args.get("login")
+	senha = request.args.get("senha")
+	if login == "Vini" and senha == "12345":
+		session["usuario"] = login
+		return redirect("/")
+	else:
+		return render_template("exibir_mensagem.html", resultado="Usuário não encontrado!")
+
+@app.route("/logout")
+def logout():
+	session.pop("usuario")
+	return redirect("/")
 
 app.run(debug=True, host="0.0.0.0")
