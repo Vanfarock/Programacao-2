@@ -70,10 +70,10 @@ def cadastrar_pessoa():
 def form_login():
 	return render_template("form_login.html")
 
-@app.route("/login")
+@app.route("/login", methods=["post"])
 def login():
-	login = request.args.get("login")
-	senha = request.args.get("senha")
+	login = request.form["login"]
+	senha = request.form["senha"]
 	if login == "Vini" and senha == "12345":
 		session["usuario"] = login
 		return redirect("/")
