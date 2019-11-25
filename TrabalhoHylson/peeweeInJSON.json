@@ -1,0 +1,104 @@
+{
+  "ProdutoraJogos": {
+    "nome": "Blizzard",
+    "cnpj": "1234567890"
+  },
+  "Fornecedor": {
+    "nome": "Chiodini",
+    "cnpj": "0987654321"
+  },
+  "Plataforma": {
+    "nome": "Computador"
+  },
+  "Jogo": {
+    "nome": "Overwatch",
+    "preco": 150,
+    "lancamento": "2015-11-10",
+    "classificacaoIndicativa": 12,
+    "fornecedor": {
+      "nome": "Chiodini",
+      "cnpj": "0987654321"
+    },
+    "produtora": {
+      "nome": "Computador"
+    },
+    "plataforma": {
+      "nome": "Computador"
+    }
+  },
+  "Cliente": {
+    "nome": "Luana Chiodini",
+    "cpf": "12366789020",
+    "dataNascimento": "2002-03-07"
+  },
+  "Funcionario": {
+    "nome": "Vinicius Martins",
+    "cpf": "80976517292",
+    "dataNascimento": "2002-03-07",
+    "dataVinculoEmpresa": "2019-11-25",
+    "salario": 1050
+  },
+  "TicketsDesconto": {
+    "valor": 15
+  },
+  "TipoPerifericos": {
+    "nome": "HeadSet"
+  },
+  "Perifericos": {
+    "nome": "Razer Kraken",
+    "preco": 250,
+    "tipo": {
+      "nome": "HeadSet"
+    }
+  },
+  "Compra": {
+    "dataHora": "2019-11-25 15:59:47",
+    "cliente": {
+      "nome": "Luana Chiodini",
+      "cpf": "12366789020",
+      "dataNascimento": "2002-03-07",
+      "dataVinculoEmpresa": "2019-11-25",
+      "salario": 1050
+    },
+    "funcionario": {
+      "nome": "Vinicius Martins",
+      "cpf": "80976517292",
+      "dataNascimento": "2002-03-07",
+      "dataVinculoEmpresa": "2019-11-25",
+      "salario": 1050
+    },
+    "valorBruto": 1200,
+    "jogos": [
+      {
+        "nome": "Overwatch",
+        "preco": 150,
+        "lancamento": "2015-11-10",
+        "classificacaoIndicativa": 12,
+        "fornecedor": {
+          "nome": "Chiodini",
+          "cnpj": "0987654321"
+        },
+        "produtora": {
+          "nome": "Computador"
+        },
+        "plataforma": {
+          "nome": "Computador"
+        }
+      }
+    ],
+    "perifericos": [
+      {
+        "nome": "Razer Kraken",
+        "preco": 250,
+        "tipo": {
+          "nome": "HeadSet"
+        }
+      }
+    ],
+    "ticketsDesconto": [
+      {
+        "valor": 15
+      }
+    ]
+  }
+}
